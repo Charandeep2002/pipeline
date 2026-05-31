@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Stage 1 - Name Here') {
+        stage('Checkout Code') {
             steps {
-                echo "🛠️ Step description here"
-                // Commands here (e.g., git, sh, etc.)
+                echo "🛠️ Cloning Private Gitub repository"
+                git credentialsId: 'my-private-repo-creds', branch:'main', url:'https://github.com/Charandeep2002/Superlab.git'
             }
         }
 
