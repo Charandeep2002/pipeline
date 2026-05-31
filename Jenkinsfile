@@ -11,7 +11,14 @@ pipeline {
                 git credentialsId: 'my-private-repo-creds', branch:'main', url:'https://github.com/Charandeep2002/Superlab.git'
             }
         }
-
+        stage('Check Java') {
+           steps {
+               sh 'java -version'
+               sh 'javac -version'
+               sh 'mvn -version'
+               sh 'echo $JAVA_HOME'
+           }
+        }
         stage('Maven Build') {
             steps {
                 echo "Building Project"
