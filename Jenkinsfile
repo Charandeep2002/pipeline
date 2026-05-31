@@ -1,41 +1,31 @@
 pipeline {
     agent any
-    environment{
-        MAVEN_HOME = tool 'MAVEN' 
+
+    environment {
+        MAVEN_HOME = tool 'MAVEN'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                echo "🛠️ Cloning Private Gitub repository"
-                git credentialsId: 'my-private-repo-creds', branch:'main', url:'https://github.com/Charandeep2002/Superlab.git'
-            }
-        }
-        stage('Check Java') {
-           steps {
-               sh 'java -version'
-               sh 'javac -version'
-               sh 'mvn -version'
-               sh 'echo $JAVA_HOME'
-               sh 'ls -l /usr/lib/jvm'
-           }
-        }
-        stage('Maven Build') {
-            steps {
-                echo "Building Project"
-                sh "${MAVEN_HOME}/bin/mvn clean verify -Dtest=!FormUItest"
+                git credentialsId: 'my-private-repo-creds', branch: 'main', url: 'https://github.com/Charandeep2002/Superlab.git'
             }
         }
 
-        // ➕ Add more stages as needed
+        stage('Maven Build') {
+            steps {
+                echo 'Building project'
+                sh "${MAVEN_HOME}/bin/mvn clean verify -Dtest=!FormUITest"
+            }
+        }
     }
 
     post {
         success {
-            echo "✅ Pipeline completed successfully!"
+            echo '✅ Build pipeline completed successfully!'
         }
         failure {
-            echo "❌ Pipeline failed. Please check the logs."
+            echo '❌ Pipeline failed. Please check the logs.'
         }
     }
 }
