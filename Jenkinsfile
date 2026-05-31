@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+        MAVEN_HOME = tool 'MAVEN' 
+    }
 
     stages {
         stage('Checkout Code') {
@@ -9,10 +12,10 @@ pipeline {
             }
         }
 
-        stage('Stage 2 - Name Here') {
+        stage('Maven Build') {
             steps {
-                echo "🔍 Step description here"
-                // Commands here
+                echo "Building Project"
+                sh "${MAVEN_HOME}/bin/mvn clean verify -Dtest=!FormUItest"
             }
         }
 
