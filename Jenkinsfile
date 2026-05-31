@@ -17,6 +17,7 @@ pipeline {
                sh 'javac -version'
                sh 'mvn -version'
                sh 'echo $JAVA_HOME'
+               sh 'ls -l /usr/lib/jvm'
            }
         }
         stage('Maven Build') {
